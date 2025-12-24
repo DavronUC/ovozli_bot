@@ -23,6 +23,6 @@ jobs:
     
     - name: Run bot
       env:
-        BOT_TOKEN: 8557198194:AAEXJhIYYxjiABy45EdcRRPvdYnNU24NQbY
+        BOT_TOKEN: 8557198194:AAFepvLz0NyZo9VWpfsL_5pkq-ZrV7lTLus
       run: |
         python main.py
