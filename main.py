@@ -17,6 +17,8 @@ from aiogram.types import (
 )
 
 # ================== TOKEN ==================
+from dotenv import load_dotenv
+load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
 # ================== DISPATCHER ==================
@@ -144,3 +146,4 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
