@@ -16,7 +16,7 @@ from aiogram.types import (
     FSInputFile,
 )
 
-# ================== TOKEN ==================
+#    Token
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
@@ -146,4 +146,5 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
 
