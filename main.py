@@ -106,11 +106,16 @@ async def start(message: Message):
 
 @dp.message(Command("help"))
 async def help_cmd(message: Message):
-    await message.answer("📖 Matn yuboring — bot ovozga aylantirib beradi.")
+    # Sizning Telegramingizga yo‘naltirish
+    await message.answer("📲 Mening Telegramim: @davronbek_17_09")
 
 @dp.message(Command("about"))
 async def about_cmd(message: Message):
-    await message.answer("🤖 Ovozli bot | edge-tts asosida")
+    await message.answer(
+        "🤖 Bu ovozli bot!\n"
+        "🛠 edge-tts texnologiyasi asosida ishlaydi.\n"
+        "📖 Matn yuboring — bot uni ovozga aylantirib beradi."
+    )
 
 @dp.message(F.text.in_(menu))
 async def choose_voice(message: Message):
@@ -146,5 +151,3 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
-
-
