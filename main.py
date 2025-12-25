@@ -16,15 +16,15 @@ from aiogram.types import (
     FSInputFile,
 )
 
-#    Token
+
 from dotenv import load_dotenv
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
-# ================== DISPATCHER ==================
+
 dp = Dispatcher()
 
-# ================== COMMANDS ==================
+
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="start", description="Boshlash"),
@@ -33,7 +33,7 @@ async def set_commands(bot: Bot):
     ]
     await bot.set_my_commands(commands)
 
-# ================== TTS FUNCTION ==================
+
 async def ovoz(matn, filename, voice):
     max_len = 300
     chunks = [matn[i:i + max_len] for i in range(0, len(matn), max_len)]
@@ -51,12 +51,12 @@ async def ovoz(matn, filename, voice):
                 out.write(inp.read())
             os.remove(f)
 
-# ================== MENYU ==================
+
 menu = [
     "👨‍🦰 Sardor 🇺🇿", "👩 Madina 🇺🇿",
     "👨‍🦱 Ahmet 🇹🇷", "👩 Emel 🇹🇷",
-    "👨‍🦰 Dmitry 🇷🇺", "👩 Svetlana 🇷🇺", "👩‍🦰 Dariya 🇷🇺",
-    "🤖 Neural 🇺🇸", "👩 Jenny 🇺🇸",
+    "👨‍🦰 Dmitry 🇷🇺", "👩 Svetlana 🇷🇺",
+    "👨‍🦰 Neural 🇺🇸", "👩 Jenny 🇺🇸",
     "👨 Ryan 🇺🇸", "👩 Sonia 🇺🇸",
     "👩 Emma 🇬🇧", "👨 Brian 🇬🇧",
     "👨‍🦱 Hamed 🇸🇦", "👩‍🦱 Zariyah 🇸🇦",
@@ -150,4 +150,5 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
 
