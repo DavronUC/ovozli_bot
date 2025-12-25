@@ -94,7 +94,7 @@ voices = {
 
 users = {}
 
-# ================== HANDLERS ==================
+
 @dp.message(Command("start"))
 async def start(message: Message):
     await message.answer(
@@ -105,7 +105,7 @@ async def start(message: Message):
 
 @dp.message(Command("help"))
 async def help_cmd(message: Message):
-    # Sizning Telegramingizga yo‘naltirish
+
     await message.answer("📲 Mening Telegramim: @davronbek_17_09")
 
 @dp.message(Command("about"))
@@ -140,7 +140,7 @@ async def text_handler(message: Message):
         if os.path.exists(filename):
             os.remove(filename)
 
-# ================== MAIN ==================
+
 async def main():
     logging.info("Bot ishga tushdi")
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
@@ -150,5 +150,6 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
 
 
