@@ -66,11 +66,11 @@ keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text=menu[0]), KeyboardButton(text=menu[1])],
         [KeyboardButton(text=menu[2]), KeyboardButton(text=menu[3])],
-        [KeyboardButton(text=menu[4]), KeyboardButton(text=menu[5]), KeyboardButton(text=menu[6])],
-        [KeyboardButton(text=menu[7]), KeyboardButton(text=menu[8])],
-        [KeyboardButton(text=menu[9]), KeyboardButton(text=menu[10])],
-        [KeyboardButton(text=menu[11]), KeyboardButton(text=menu[12])],
-        [KeyboardButton(text=menu[13]), KeyboardButton(text=menu[14])],
+        [KeyboardButton(text=menu[4]), KeyboardButton(text=menu[5]),
+        [KeyboardButton(text=menu[6]), KeyboardButton(text=menu[7])],
+        [KeyboardButton(text=menu[8]), KeyboardButton(text=menu[9])],
+        [KeyboardButton(text=menu[10]), KeyboardButton(text=menu[11])],
+        [KeyboardButton(text=menu[12]), KeyboardButton(text=menu[13])],
     ],
     resize_keyboard=True,
 )
@@ -82,15 +82,14 @@ voices = {
     menu[3]: "tr-TR-EmelNeural",
     menu[4]: "ru-RU-DmitryNeural",
     menu[5]: "ru-RU-SvetlanaNeural",
-    menu[6]: "ru-RU-DariyaNeural",
-    menu[7]: "en-US-GuyNeural",
-    menu[8]: "en-US-JennyNeural",
-    menu[9]: "en-US-RyanNeural",
-    menu[10]: "en-US-SoniaNeural",
-    menu[11]: "en-GB-EmmaNeural",
-    menu[12]: "en-GB-BrianNeural",
-    menu[13]: "ar-SA-HamedNeural",
-    menu[14]: "ar-SA-ZariyahNeural",
+    menu[6]: "en-US-GuyNeural",
+    menu[7]: "en-US-JennyNeural",
+    menu[8]: "en-US-RyanNeural",
+    menu[9]: "en-US-SoniaNeural",
+    menu[10]: "en-GB-EmmaNeural",
+    menu[11]: "en-GB-BrianNeural",
+    menu[12]: "ar-SA-HamedNeural",
+    menu[13]: "ar-SA-ZariyahNeural",
 }
 
 users = {}
@@ -151,3 +150,4 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
