@@ -1,3 +1,4 @@
 aiogram
 python-dotenv
 edge-tts
+deep-translator
