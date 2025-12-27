@@ -17,13 +17,18 @@ from aiogram.types import (
 )
 
 from dotenv import load_dotenv
+
+# ================== ENV ==================
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
+if not TOKEN:
+    raise ValueError("BOT_TOKEN topilmadi")
 
+# ================== DISPATCHER ==================
 dp = Dispatcher()
 
-
+# ================== COMMANDS ==================
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="start", description="Boshlash"),
@@ -32,8 +37,8 @@ async def set_commands(bot: Bot):
     ]
     await bot.set_my_commands(commands)
 
-
-async def ovoz(matn, filename, voice):
+# ================== TTS ==================
+async def ovoz(matn: str, filename: str, voice: str):
     max_len = 300
     chunks = [matn[i:i + max_len] for i in range(0, len(matn), max_len)]
     temp_files = []
@@ -50,7 +55,7 @@ async def ovoz(matn, filename, voice):
                 out.write(inp.read())
             os.remove(f)
 
-
+# ================== MENU ==================
 menu = [
     "👨‍🦰 Sardor 🇺🇿", "👩 Madina 🇺🇿",
     "👨‍🦱 Ahmet 🇹🇷", "👩 Emel 🇹🇷",
@@ -65,7 +70,7 @@ keyboard = ReplyKeyboardMarkup(
     keyboard=[
         [KeyboardButton(text=menu[0]), KeyboardButton(text=menu[1])],
         [KeyboardButton(text=menu[2]), KeyboardButton(text=menu[3])],
-        [KeyboardButton(text=menu[4]), KeyboardButton(text=menu[5]),
+        [KeyboardButton(text=menu[4]), KeyboardButton(text=menu[5])],
         [KeyboardButton(text=menu[6]), KeyboardButton(text=menu[7])],
         [KeyboardButton(text=menu[8]), KeyboardButton(text=menu[9])],
         [KeyboardButton(text=menu[10]), KeyboardButton(text=menu[11])],
@@ -93,7 +98,7 @@ voices = {
 
 users = {}
 
-
+# ================== HANDLERS ==================
 @dp.message(Command("start"))
 async def start(message: Message):
     await message.answer(
@@ -104,7 +109,6 @@ async def start(message: Message):
 
 @dp.message(Command("help"))
 async def help_cmd(message: Message):
-
     await message.answer("📲 Mening Telegramim: @davronbek_17_09")
 
 @dp.message(Command("about"))
@@ -131,27 +135,27 @@ async def text_handler(message: Message):
 
     try:
         await ovoz(message.text, filename, voice)
-        await message.answer_voice(FSInputFile(filename), caption="🔊 Tayyor!")
+        await message.answer_voice(
+            FSInputFile(filename),
+            caption="🔊 Tayyor!"
+        )
     except Exception as e:
-        logging.error(e)
+        logging.exception(e)
         await message.answer("❌ Xatolik yuz berdi.")
     finally:
         if os.path.exists(filename):
             os.remove(filename)
 
-
+# ================== MAIN ==================
 async def main():
     logging.info("Bot ishga tushdi")
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(
+        token=TOKEN,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
+    )
     await set_commands(bot)
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
-
-
-
-
-
-
