@@ -17,6 +17,7 @@ from aiogram.types import (
 )
 
 from dotenv import load_dotenv
+from deep_translator import GoogleTranslator
 
 # ================== ENV ==================
 load_dotenv()
@@ -79,6 +80,7 @@ keyboard = ReplyKeyboardMarkup(
     resize_keyboard=True,
 )
 
+# ================== VOICES ==================
 voices = {
     menu[0]: "uz-UZ-SardorNeural",
     menu[1]: "uz-UZ-MadinaNeural",
@@ -94,6 +96,24 @@ voices = {
     menu[11]: "en-GB-BrianNeural",
     menu[12]: "ar-SA-HamedNeural",
     menu[13]: "ar-SA-ZariyahNeural",
+}
+
+# ================== LANGS ==================
+voice_lang = {
+    menu[0]: "uz",
+    menu[1]: "uz",
+    menu[2]: "tr",
+    menu[3]: "tr",
+    menu[4]: "ru",
+    menu[5]: "ru",
+    menu[6]: "en",
+    menu[7]: "en",
+    menu[8]: "en",
+    menu[9]: "en",
+    menu[10]: "en",
+    menu[11]: "en",
+    menu[12]: "ar",
+    menu[13]: "ar",
 }
 
 users = {}
@@ -115,13 +135,16 @@ async def help_cmd(message: Message):
 async def about_cmd(message: Message):
     await message.answer(
         "🤖 Bu ovozli bot!\n"
-        "🛠 edge-tts texnologiyasi asosida ishlaydi.\n"
-        "📖 Matn yuboring — bot uni ovozga aylantirib beradi."
+        "🛠 edge-tts + tarjima asosida ishlaydi.\n"
+        "📖 Matn yuboring — bot uni tanlangan tilga o‘girib o‘qiydi."
     )
 
 @dp.message(F.text.in_(menu))
 async def choose_voice(message: Message):
-    users[message.from_user.id] = voices[message.text]
+    users[message.from_user.id] = {
+        "voice": voices[message.text],
+        "lang": voice_lang[message.text],
+    }
     await message.answer("✅ Ovoz tanlandi. Endi matn yuboring.")
 
 @dp.message(F.text)
@@ -130,18 +153,29 @@ async def text_handler(message: Message):
         await message.answer("⚠️ Avval /start bosib ovoz tanlang.")
         return
 
-    voice = users[message.from_user.id]
+    data = users[message.from_user.id]
+    voice = data["voice"]
+    target_lang = data["lang"]
+
+    text = message.text
+
+    # 🔁 TARJIMA
+    if target_lang != "uz":
+        try:
+            text = GoogleTranslator(source="auto", target=target_lang).translate(text)
+        except Exception as e:
+            logging.exception(e)
+            await message.answer("❌ Tarjima xatosi")
+            return
+
     filename = f"voice_{message.chat.id}_{message.message_id}.mp3"
 
     try:
-        await ovoz(message.text, filename, voice)
-        await message.answer_voice(
-            FSInputFile(filename),
-            caption="🔊 Tayyor!"
-        )
+        await ovoz(text, filename, voice)
+        await message.answer_voice(FSInputFile(filename), caption="🔊 Tayyor!")
     except Exception as e:
         logging.exception(e)
-        await message.answer("❌ Xatolik yuz berdi.")
+        await message.answer("❌ Ovoz chiqarishda xato")
     finally:
         if os.path.exists(filename):
             os.remove(filename)
