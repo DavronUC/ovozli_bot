@@ -19,7 +19,7 @@ from aiogram.types import (
 from dotenv import load_dotenv
 from deep_translator import GoogleTranslator
 
-# ================== ENV ==================
+# ==ENV==
 load_dotenv()
 TOKEN = os.getenv("BOT_TOKEN")
 
@@ -193,3 +193,4 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
