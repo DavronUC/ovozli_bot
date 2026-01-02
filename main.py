@@ -15,7 +15,7 @@ from aiogram.types import (
     BotCommand,
     FSInputFile,
 )
-
+#////////
 from dotenv import load_dotenv
 from deep_translator import GoogleTranslator
 
@@ -193,4 +193,5 @@ async def main():
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
+
 
