@@ -15,7 +15,6 @@ from aiogram.types import (
     BotCommand,
     FSInputFile,
 )
-#=========234=========
 from dotenv import load_dotenv
 from deep_translator import GoogleTranslator
 
