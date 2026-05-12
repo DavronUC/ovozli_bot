@@ -25,7 +25,7 @@ TOKEN = os.getenv("BOT_TOKEN")
 if not TOKEN:
     raise ValueError("BOT_TOKEN topilmadi")
 
-# ================== DISPATCHER ==================
+
 dp = Dispatcher()
 
 # ================== COMMANDS ==================
