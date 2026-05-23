@@ -28,7 +28,6 @@ if not TOKEN:
 
 dp = Dispatcher()
 
-# ================== COMMANDS ==================
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command="start", description="Boshlash"),
